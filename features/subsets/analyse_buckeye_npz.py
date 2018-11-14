@@ -42,6 +42,7 @@ def main():
     npz = np.load(args.npz_fn)
     keys = sorted(npz.keys())
 
+    print("No. segments:", len(keys))
     print("E.g. key:", keys[0])
     print("E.g. feature:", npz[keys[0]][0, :])
 

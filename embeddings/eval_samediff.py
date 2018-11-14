@@ -5,15 +5,15 @@ Perform same-different evaluation of fixed-dimensional representations.
 
 Author: Herman Kamper
 Contact: kamperh@gmail.com
-Date: 2015, 2018
+Date: 2015, 2016, 2018
 """
 
 from __future__ import division
 from __future__ import print_function
+from datetime import datetime
 from os import path
 from scipy.spatial.distance import pdist
 import argparse
-import datetime
 import numpy as np
 import sys
 
@@ -31,16 +31,10 @@ def check_argv():
     parser = argparse.ArgumentParser(
         description=__doc__.strip().split("\n")[0], add_help=False
         )
-    parser.add_argument("npz_fn", type=str, help="NumPy archive")
+    parser.add_argument("npz_fn", type=str, help="Numpy archive")
     parser.add_argument(
-        "--metric", choices=["cosine", "euclidean", "hamming", "chebyshev"],
-        default="cosine",
-        help="distance metric (default: %(default)s)"
-        )
-    parser.add_argument(
-        "--mean_ap", dest="mean_ap", action="store_true",
-        help="also compute mean average precision (this is significantly "
-        "more resource intensive)"
+        "--metric", choices=["cosine", "euclidean", "hamming", "chebyshev",
+        "kl"], default="cosine", help="distance metric (default: %(default)s)"
         )
     parser.add_argument(
         "--mvn", action="store_true",
@@ -59,16 +53,13 @@ def check_argv():
 def main():
     args = check_argv()
 
-    print(datetime.datetime.now())
+    print(datetime.now())
 
     print("Reading:", args.npz_fn)
     npz = np.load(args.npz_fn)
 
-    print(datetime.datetime.now())
+    print(datetime.now())
 
-    # if args.normalize:
-    #     print("Normalizing embeddings")
-    # else:
     print("Ordering embeddings")
     n_embeds = 0
     X = []
@@ -85,12 +76,14 @@ def main():
         normed = (X - X.mean(axis=0)) / X.std(axis=0)
         X = normed
 
-    print(datetime.datetime.now())
+    print(datetime.now())
 
     print("Calculating distances")
-    distances = pdist(X, metric=args.metric)
-
-    print(datetime.datetime.now())
+    metric = args.metric
+    if metric == "kl":
+        import scipy.stats
+        metric = scipy.stats.entropy
+    distances = pdist(X, metric=metric)
 
     print("Getting labels")
     labels = []
@@ -98,23 +91,16 @@ def main():
         word = "_".join(utt_id.split("_")[:-2])
         labels.append(word)
 
-    if args.mean_ap:
-        print(datetime.datetime.now())
-        print("Calculating mean average precision")
-        mean_ap, mean_prb, ap_dict = samediff.mean_average_precision(distances, labels)
-        print("Mean average precision:", mean_ap)
-        print("Mean precision-recall breakeven:", mean_prb)
-
-    print(datetime.datetime.now())
-
     print("Calculating average precision")
     matches = samediff.generate_matches_array(labels)
 
-    ap, prb = samediff.average_precision(distances[matches == True], distances[matches == False])
-    print("Average precision:", ap)
-    print("Precision-recall breakeven:", prb)
+    ap, prb = samediff.average_precision(
+        distances[matches == True], distances[matches == False]
+        )
+    print("Average precision: {:.4f}".format(ap))
+    print("Precision-recall breakeven: {:.4f}".format(prb))
 
-    print(datetime.datetime.now())
+    print(datetime.now())
 
 
 if __name__ == "__main__":

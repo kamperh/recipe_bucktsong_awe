@@ -46,7 +46,7 @@ Evaluate and analyse downsampled MFCCs without deltas:
 
     # Devpart2
     n_samples=10
-    ./eval_samediff.py \
+    ./eval_samediff.py --mvn \
         exp/devpart2/samediff.mfcc.cmvn_dd.downsample_${n_samples}.npz
     ./analyse_embeds.py --normalize --word_type \
         because,yknow,people,something,anything,education,situation \
@@ -54,7 +54,7 @@ Evaluate and analyse downsampled MFCCs without deltas:
 
     # ZeroSpeech
     n_samples=10
-    ./eval_samediff.py \
+    ./eval_samediff.py --mvn \
         exp/zs/samediff.mfcc.cmvn_dd.downsample_${n_samples}.npz
     ./analyse_embeds.py --normalize --word_type \
         because,yknow,people,something,anything,education,situation \
@@ -62,7 +62,7 @@ Evaluate and analyse downsampled MFCCs without deltas:
 
     # Xitsonga
     n_samples=10
-    ./eval_samediff.py \
+    ./eval_samediff.py --mvn \
         exp/xitsonga/samediff.mfcc.cmvn_dd.downsample_${n_samples}.npz
     ./analyse_embeds.py --normalize --word_type \
         kombisa,swilaveko,kahle,swinene,xiyimo,fanele,naswona,xikombelo \
@@ -74,15 +74,15 @@ Results
 -------
 Devpart2 downsampled MFCCs without deltas (dimensionality=130):
 
-    Average precision: 0.238890034986
-    Precision-recall breakeven: 0.2824574817
+    Average precision: 0.24548389092135153
+    Precision-recall breakeven: 0.29062581556784084
 
-ZeroSpeech downsampled MFCCs without deltas (dimensionality=130):
+ZeroSpeech downsampled MFCCs without deltas + mvn (dimensionality=130):
 
-    Average precision: 0.2090876581437226
-    Precision-recall breakeven: 0.2685857321652065
+    Average precision: 0.21709397615831585
+    Precision-recall breakeven: 0.27647058823529413
 
 Xitsonga downsampled MFCCs without deltas (dimensionality=130):
 
-    Average precision: 0.147233868388
-    Precision-recall breakeven: 0.222399967601
+    Average precision: 0.1355318866520455
+    Precision-recall breakeven: 0.21024815480696055

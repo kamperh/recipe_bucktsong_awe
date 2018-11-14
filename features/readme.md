@@ -86,12 +86,24 @@ Create Buckeye subsets:
     ./get_subset_npz.py ../mfcc/buckeye/numpy/buckeye.mfcc.cmvn_dd.npz \
         ../../data/zs_speakers.list zs/zs.mfcc.cmvn_dd.npz
 
-Link Xitsonga subsets:
+Create Xitsonga subsets:
 
     # Xitsonga
     mkdir xitsonga
     ln -s ../../mfcc/xitsonga/numpy/xitsonga.mfcc.cmvn_dd.npz xitsonga/
     ln -s ../../fbank/xitsonga/numpy/xitsonga.fbank.mvn.npz xitsonga/
+
+    # Xitsonga dev
+    mkdir xitsonga_dev
+    ./get_subset_npz.py ../mfcc/xitsonga/numpy/xitsonga.mfcc.cmvn_dd.npz \
+        ../../data/xitsonga_dev_speakers.list \
+        xitsonga_dev/xitsonga_dev.mfcc.cmvn_dd.npz
+
+    # Xitsonga test
+    mkdir xitsonga_test
+    ./get_subset_npz.py ../mfcc/xitsonga/numpy/xitsonga.mfcc.cmvn_dd.npz \
+        ../../data/xitsonga_test_speakers.list \
+        xitsonga_test/xitsonga_test.mfcc.cmvn_dd.npz
 
 Analyse speaker lists:
 
@@ -140,7 +152,16 @@ Get features for discovered words:
 
     # Xitsonga
     mkdir xitsonga
-    # to-do
+    ./strip_nonvad_from_pairs.py \
+        ../mfcc/xitsonga/lists/segments.list \
+        ../../data/zs_tsonga.fdlps.0.925.pairs.v0 \
+        xitsonga/xitsonga_utd_pairs.list
+    ./get_terms_from_pairs.py xitsonga/xitsonga_utd_pairs.list \
+        xitsonga/xitsonga_utd_terms.list
+    ./segments_from_npz.py \
+        ../subsets/xitsonga/xitsonga.mfcc.cmvn_dd.npz \
+        xitsonga/xitsonga_utd_terms.list \
+        xitsonga/xitsonga_utd_terms.mfcc.cmvn_dd.npz
 
 Get same-different words for the different subsets:
 
@@ -157,6 +178,16 @@ Get same-different words for the different subsets:
         ../subsets/devpart1/devpart1.mfcc.cmvn_dd.npz \
         devpart1/devpart1.samediff.list \
         devpart1/devpart1.samediff.mfcc.cmvn_dd.npz
+
+    # Devpart1: samediff2 (more segments)
+    ./get_terms_for_speakers.py \
+        buckeye/buckeye.samediff2.list \
+        ../../data/devpart1_speakers.list \
+        devpart1/devpart1.samediff2.list
+    ./segments_from_npz.py \
+        ../subsets/devpart1/devpart1.mfcc.cmvn_dd.npz \
+        devpart1/devpart1.samediff2.list \
+        devpart1/devpart1.samediff2.mfcc.cmvn_dd.npz
 
     # Devpart2
     mkdir devpart2
@@ -194,6 +225,19 @@ Get same-different words for the different subsets:
         xitsonga/xitsonga.samediff.list \
         xitsonga/xitsonga.samediff.fbank.mvn.npz
 
+    # Xitsonga dev
+    mkdir xitsonga_dev
+    ./segments_from_npz.py \
+        ../subsets/xitsonga_dev/xitsonga_dev.mfcc.cmvn_dd.npz \
+        xitsonga/xitsonga.samediff.list \
+        xitsonga_dev/xitsonga_dev.samediff.mfcc.cmvn_dd.npz
+
+    # Xitsonga test
+    mkdir xitsonga_test
+    ./segments_from_npz.py \
+        ../subsets/xitsonga_test/xitsonga_test.mfcc.cmvn_dd.npz \
+        xitsonga/xitsonga.samediff.list \
+        xitsonga_test/xitsonga_test.samediff.mfcc.cmvn_dd.npz
 
 
 Buckeye set definitions

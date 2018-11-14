@@ -9,3 +9,4 @@
 !*.conf
 !Makefile
 !data/*
+notebooks/.ipynb_checkpoints/*

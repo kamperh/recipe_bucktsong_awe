@@ -25,9 +25,9 @@ the NCHLT data. These can be downloaded from:
 
 - Buckeye corpus:
   [buckeyecorpus.osu.edu](http://buckeyecorpus.osu.edu/)
-- NCHLT Xitsonga portion: [www.zerospeech.com](http://www.lscp.net/persons/dupo
-  ux/bootphon/zerospeech2014/website/page_4.html). This requires registration
-  for the challenge.
+- NCHLT Xitsonga portion:
+  [www.zerospeech.com](http://www.lscp.net/persons/dupoux/bootphon/zerospeech2014/website/page_4.html).
+  This requires registration for the challenge.
 
 From the complete Buckeye corpus we split off several subsets. The most
 important are the sets labelled as `devpart1` and `zs` in the code here. These

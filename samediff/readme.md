@@ -22,6 +22,12 @@ Evaluate MFCCs:
     ./run_samediff.sh  \
         ../features/wordpairs/devpart2/devpart2.samediff.mfcc.cmvn_dd.npz
 
+    # ZeroSpeech
+    ./run_calcdists.sh \
+        ../features/wordpairs/zs/zs.samediff.mfcc.cmvn_dd.npz
+    ./run_samediff.sh  \
+        ../features/wordpairs/zs/zs.samediff.mfcc.cmvn_dd.npz
+
     # Xitsonga
     ./run_calcdists.sh \
         ../features/wordpairs/xitsonga/xitsonga.samediff.mfcc.cmvn_dd.npz
@@ -55,6 +61,11 @@ Devpart2 filterbanks:
 
     Average precision: 0.203037757802
     Precision-recall breakeven: 0.26668384437
+
+ZeroSpeech MFFCs:
+
+    Average precision: 0.359030530567
+    Precision-recall breakeven: 0.400375469337
     
 Xitsonga MFFCs:
 

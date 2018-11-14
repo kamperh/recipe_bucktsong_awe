@@ -76,6 +76,26 @@ def main():
                 int(end))
                 )
 
+    if args.dataset == "buckeye":
+        print("Finding tokens")
+        words_39fr4ch = []
+        for utterance, label, (start, end) in words:
+            start_frame = int(round(float(start) * 100))
+            end_frame = int(round(float(end) * 100))
+            if end_frame - start_frame >= 39 and len(label) >= 4:
+                words_39fr4ch.append(
+                    (utterance, label, (start_frame, end_frame))
+                    )
+        print("No. tokens:", len(words_39fr4ch), "out of", len(words))
+
+        output_fn = path.join(args.dataset, args.dataset + ".samediff2.list")
+        print("Writing:", output_fn)
+        with open(output_fn, "w") as f:
+            for utterance, label, (start, end) in words_39fr4ch:
+                f.write(
+                    label + "_" + utterance + "_%06d-%06d\n" % (int(start),
+                    int(end))
+                    )
 
 if __name__ == "__main__":
     main()
