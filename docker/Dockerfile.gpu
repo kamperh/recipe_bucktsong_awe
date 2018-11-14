@@ -1,0 +1,25 @@
+# Docker image for TensorFlow and HTK.
+# Herman Kamper, kamperh@gmail.com, 2018.
+
+# Requires that `HTK-samples-3.4.1.tar.gz` be in the same directory as where
+# the image is created from. After registering, this tarball can be obtained
+# from http://htk.eng.cam.ac.uk/download.shtml.
+
+# Parent image
+FROM ufoym/deepo:tensorflow-py27-gpu
+
+# Install HTK dependencies
+RUN apt-get install -y --no-install-recommends \
+    libc6-i386 \
+    libc6-dev-i386
+
+# Install HTK
+ADD HTK-3.4.1.tar.gz /src/
+WORKDIR /src/htk/
+RUN ./configure --disable-hslab && \
+    sed -i 's/\ \ \ \ \ \ \ \ if/\tif/' HLMTools/Makefile && \
+    make all && \
+    make install
+
+# Working directory
+WORKDIR /home
