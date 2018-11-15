@@ -38,11 +38,48 @@ details of which speakers are found in which set is also given at the end of
 provided as part of the Zero Speech Challenge 2015 (this is already a subset of
 the NCHLT data).
 
+Download all these datasets beforehand. The can be stored apart from the code.
+
+
+
+Clone the repository
+--------------------
+Clone the repository by running:
+
+    git clone https://github.com/kamperh/bucktsong_awe
+
+Move into the repository directory:
+
+    cd bucktsong_awe
+
+
+Docker
+------
+This recipe comes with Dockerfiles which can be used to build images containing
+all of the required dependencies. This recipe can be completed without using
+Docker, but using the image makes it easier to resolve dependencies. To use the
+docker image you need to first:
+
+- Install [Docker](https://docs.docker.com/install/) and follow the [post
+  installation
+  steps](https://docs.docker.com/install/linux/linux-postinstall/).
+- Install [nvidia-docker](https://github.com/NVIDIA/nvidia-docker).
+
+The one dependency for building the image is [HTK](http://htk.eng.cam.ac.uk/).
+Download the file `HTK-3.4.1.tar.gz` from their website and copy this into the
+`docker` directory.
+
+To build a docker image, then run the following:
+
+    cd docker
+    
+
+
 
 
 Preliminaries
 -------------
-Obtain all the datasets as described in the Datasets section above. Install all
+Install all
 the standalone dependencies (see Dependencies section below). Then clone the
 required GitHub repositories into `../src/` as follows:
 
