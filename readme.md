@@ -1,12 +1,10 @@
 Acoustic Word Embeddings on Buckeye English and NCHLT Xitsonga
 ==============================================================
 
-
 Overview
 --------
 Unsupervised acoustic word embedding (AWE) approaches are implemented and
 evaluated on the Buckeye English and NCHLT Xitsonga speech datasets.
-
 
 
 Disclaimer
@@ -14,7 +12,6 @@ Disclaimer
 The code provided here is not pretty. But I believe that research should be
 reproducible. I provide no guarantees with the code, but please let me know if
 you have any problems, find bugs or have general comments.
-
 
 
 Datasets
@@ -39,7 +36,6 @@ provided as part of the Zero Speech Challenge 2015 (this is already a subset of
 the NCHLT data).
 
 Download all these datasets beforehand. The can be stored apart from the code.
-
 
 
 Clone the repository
@@ -85,7 +81,6 @@ mode with the mounted directories, run:
     -v "$(pwd)":/home -it tf-htk
 
 
-
 Preliminaries
 -------------
 If you are not using the docker image, install all the standalone dependencies
@@ -107,17 +102,16 @@ For `speech_dtw` you need to run `make` to build. Unit tests can be performed
 by running `make test`. See the readmes for more details.
 
 
-
 Testing
 -------
-Run `make test` to run unit tests.
-
+In the root project directory, run `make test` to run unit tests.
 
 
 Feature extraction
 ------------------
-Update the paths in `paths.py`. Extract filterbank and MFCC features by running
-the steps in [features/readme.md](features/readme.md).
+Update the paths in `paths.py`. If you are using docker, this file should
+already contain the mounted directories. Extract filterbank and MFCC features
+by running the steps in [features/readme.md](features/readme.md).
 
 
 

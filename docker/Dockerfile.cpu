@@ -8,6 +8,11 @@
 # Parent image
 FROM ufoym/deepo:tensorflow-py27-cpu
 
+# Standard tools (Python 2.7)
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    python-nose
+
 # Install HTK dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
