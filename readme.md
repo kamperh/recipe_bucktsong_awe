@@ -69,22 +69,39 @@ The one dependency for building the image is [HTK](http://htk.eng.cam.ac.uk/).
 Download the file `HTK-3.4.1.tar.gz` from their website and copy this into the
 `docker` directory.
 
-To build a docker image, then run the following:
+Then, to build a docker image, run the following:
 
     cd docker
-    
+    docker build -f Dockerfile.gpu -t tf-htk .
+    cd ..
 
+All the rest of the steps can be run in a container in interactive mode. You
+will need to mount the dataset directories. To run the container in interactive
+mode with the mounted directories, run:
+
+  docker run --runtime=nvidia \
+    -v /r2d2/backup/endgame/datasets/buckeye:/data/buckeye \
+    -v /r2d2/backup/endgame/datasets/zrsc2015/xitsonga_wavs:/data/xitsonga_wavs \
+    -v "$(pwd)":/home -it tf-htk
 
 
 
 Preliminaries
 -------------
-Install all
-the standalone dependencies (see Dependencies section below). Then clone the
-required GitHub repositories into `../src/` as follows:
+If you are not using the docker image, install all the standalone dependencies
+(see Dependencies section below).
 
-    mkdir ../src/
+Then clone the required GitHub repositories into `../src/` as follows:
+
+    mkdir ../src/  # not necessary using docker
     git clone https://github.com/kamperh/speech_dtw.git ../src/speech_dtw/
+
+Build the `speech_dtw` tools by running:
+
+  cd ../src/speech_dtw
+  make
+  make test
+  cd -
 
 For `speech_dtw` you need to run `make` to build. Unit tests can be performed
 by running `make test`. See the readmes for more details.
