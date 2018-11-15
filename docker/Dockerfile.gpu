@@ -9,7 +9,10 @@
 FROM ufoym/deepo:tensorflow-py27
 
 # Install HTK dependencies
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    g++ \
+    gcc-multilib \
     libc6-i386 \
     libc6-dev-i386
 
