@@ -6,7 +6,7 @@
 # from http://htk.eng.cam.ac.uk/download.shtml.
 
 # Parent image
-FROM ufoym/deepo:tensorflow-py27-gpu
+FROM ufoym/deepo:tensorflow-py27
 
 # Install HTK dependencies
 RUN apt-get install -y --no-install-recommends \
