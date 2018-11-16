@@ -108,8 +108,8 @@ Create Xitsonga subsets:
 
 Analyse speaker lists:
 
-    ./analyse_buckeye_speaker_list.py ../data/devpart1_speakers.list
-    ./analyse_buckeye_speaker_list.py ../data/zs_speakers.list
+    ./analyse_buckeye_speaker_list.py ../../data/devpart1_speakers.list
+    ./analyse_buckeye_speaker_list.py ../../data/zs_speakers.list
 
 Analyse the lengths, means and variances in a given npz file:
 
