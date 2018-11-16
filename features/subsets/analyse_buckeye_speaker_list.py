@@ -47,34 +47,38 @@ def main():
         )
 
     # Read list
-    print "Reading list:", args.list_fn
+    print("Reading list:", args.list_fn)
     utterances = [i.strip() for i in open(args.list_fn)]
-    print
-    print "No. utterances:", len(utterances)
+    print()
+    print("No. utterances:", len(utterances))
 
     speakers = set([i[:3] for i in utterances])
-    print "No. speakers:", len(speakers)
+    print("No. speakers:", len(speakers))
 
     male_speakers = [i for i in speakers if speaker_info[i][0] == "m"]
     female_speakers = [i for i in speakers if speaker_info[i][0] == "f"]
 
-    print
-    print "Female speakers:", sorted(list(female_speakers))
-    print "Male speakers:", sorted(list(male_speakers))
+    print()
+    print("Female speakers:", sorted(list(female_speakers)))
+    print("Male speakers:", sorted(list(male_speakers)))
 
-    print "No. female speakers:", len(female_speakers)
-    print "No. male speakers:", len(male_speakers)
-    print "No. young speakers:", len(
-        [i for i in speakers if speaker_info[i][1] == "y"]
+    print("No. female speakers:", len(female_speakers))
+    print("No. male speakers:", len(male_speakers))
+    print(
+        "No. young speakers:", len( [i for i in speakers if speaker_info[i][1]
+        == "y"])
         )
-    print "No. old speakers:", len(
-        [i for i in speakers if speaker_info[i][1] == "o"]
+    print(
+        "No. old speakers:", len( [i for i in speakers if speaker_info[i][1] ==
+        "o"])
         )
-    print "No. female interviewers:", len(
-        [i for i in speakers if speaker_info[i][2] == "f"]
+    print(
+        "No. female interviewers:", len( [i for i in speakers if
+        speaker_info[i][2] == "f"])
         )
-    print "No. male interviewers:", len(
-        [i for i in speakers if speaker_info[i][2] == "m"]
+    print(
+        "No. male interviewers:", len( [i for i in speakers if
+        speaker_info[i][2] == "m"])
         )
 
 

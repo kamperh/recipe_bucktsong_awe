@@ -80,7 +80,8 @@ mode with the mounted directories, run:
       -v /r2d2/backup/endgame/datasets/zrsc2015/xitsonga_wavs:/data/xitsonga_wavs \
       -v "$(pwd)":/home -it tf-htk
 
-Alternatively, simply run `docker.sh`, which executes the above command.
+Alternatively, simply run `./docker.sh`, which executes the above command and
+starts an interactive container.
 
 
 Preliminaries

@@ -32,6 +32,8 @@ corpus:
     ../htk_to_npz.py --extension fbank \
         xitsonga/mvn xitsonga/numpy/xitsonga.fbank.mvn.npz
 
+    cd ..
+
 
 Mel-frequency cepstral coefficients
 -----------------------------------
@@ -56,6 +58,8 @@ Xitsonga corpus:
     ./get_cmvn_dd_htk.py xitsonga
     mkdir xitsonga/numpy
     ../htk_to_npz.py xitsonga/cmvn_dd xitsonga/numpy/xitsonga.mfcc.cmvn_dd.npz
+
+    cd ..
 
 
 Subsets
@@ -110,6 +114,8 @@ Analyse speaker lists:
 Analyse the lengths, means and variances in a given npz file:
 
     ./analyse_buckeye_npz.py zs/zs.mfcc.cmvn_dd.npz
+
+    cd ..
 
 
 Extract words
@@ -234,6 +240,8 @@ Get same-different words for the different subsets:
         ../subsets/xitsonga_test/xitsonga_test.mfcc.cmvn_dd.npz \
         xitsonga/xitsonga.samediff.list \
         xitsonga_test/xitsonga_test.samediff.mfcc.cmvn_dd.npz
+
+    cd ..
 
 
 Buckeye set definitions
