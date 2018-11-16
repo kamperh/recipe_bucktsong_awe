@@ -111,7 +111,8 @@ Feature extraction
 ------------------
 Update the paths in `paths.py`. If you are using docker, this file should
 already contain the mounted directories. Extract filterbank and MFCC features
-by running the steps in [features/readme.md](features/readme.md).
+moving to the directory (`cd features`) and then running the steps in
+[features/readme.md](features/readme.md).
 
 
 

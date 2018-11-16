@@ -15,7 +15,7 @@ import argparse
 import os
 import sys
 
-sys.path.append(path.join("..", "..", "src", "utils"))
+sys.path.append(path.join(".."))
 
 from utils import shell
 

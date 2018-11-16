@@ -6,7 +6,6 @@ Overview
 These steps perform filterbank and MFCC feature extraction.
 
 
-
 Filterbanks
 -----------
 Move to the filterbank feature extraction directory:
@@ -34,7 +33,6 @@ corpus:
         xitsonga/mvn xitsonga/numpy/xitsonga.fbank.mvn.npz
 
 
-
 Mel-frequency cepstral coefficients
 -----------------------------------
 Move to the MFCC feature extraction directory:
@@ -58,7 +56,6 @@ Xitsonga corpus:
     ./get_cmvn_dd_htk.py xitsonga
     mkdir xitsonga/numpy
     ../htk_to_npz.py xitsonga/cmvn_dd xitsonga/numpy/xitsonga.mfcc.cmvn_dd.npz
-
 
 
 Subsets
@@ -113,7 +110,6 @@ Analyse speaker lists:
 Analyse the lengths, means and variances in a given npz file:
 
     ./analyse_buckeye_npz.py zs/zs.mfcc.cmvn_dd.npz
-
 
 
 Extract words
