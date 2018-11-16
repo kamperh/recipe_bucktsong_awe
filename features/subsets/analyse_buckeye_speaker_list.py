@@ -14,7 +14,7 @@ from os import path
 import argparse
 import sys
 
-speakers_list_fn = path.join("..", "..", "data", "buckeye_speakers.txt")
+speakers_list_fn = path.join("..", "..", "data", "buckeye_speakers.list")
 
 
 #-----------------------------------------------------------------------------#
