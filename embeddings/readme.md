@@ -12,7 +12,6 @@ For Xitsonga, only UTD segments and test data is used; all validation (i.e.
 choosing hyper-parameters) is based on the Buckeye English validation data.
 
 
-
 Correspondence autoencoder
 --------------------------
 Train a recurrent CAE on ground truth segments:
@@ -60,7 +59,6 @@ Apply a Buckeye CAE on Xitsonga:
         models/buckeye.mfcc.gt/train_cae/546fd9ac51/cae.best_val.xitsonga.test.npz
 
 
-
 Autoencoder
 -----------
 To train a recurrent AE, we actually use the same script as for the CAE, but
@@ -77,7 +75,6 @@ Train a recurrent AE on random segments:
 Train a recurrent AE on UTD segments:
 
     ./train_cae.py --train_tag utd --cae_n_epochs 0  # h
-
 
 
 Variational autoencoder
@@ -97,7 +94,6 @@ Train a recurrent VAE on UTD segments:
     ./train_vae.py --batch_size 300 --train_tag utd
 
 
-
 Sweeping across models
 ----------------------
 Multiple models can be run in series and the evaluated. Here is an example of
@@ -114,7 +110,6 @@ combining the different evaluations):
 Perform test-set evaluation on a sweep:
 
     ./test_sweep.py models/train_cae.sweep1
-
 
 
 Results: Buckeye
@@ -256,7 +251,6 @@ Results:
     Test AP with normalisation mean: 0.2501 (+- 0.0024)
 
 
-
 Results: Xitsonga
 -----------------
 
@@ -303,9 +297,3 @@ Test results:
 
     Test AP mean: 0.1097 (+- 0.0049)
     Test AP with normalisation mean: 0.1143 (+- 0.0040)
-
-
-Options to still investigate
-----------------------------
-- Batch normalisation
-- Dropout
