@@ -13,6 +13,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         less \
         nano \
+        && \
     python -m pip --no-cache-dir install --upgrade \
         setuptools \
         pip \
