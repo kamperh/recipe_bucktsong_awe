@@ -17,14 +17,24 @@ Correspondence autoencoder
 Train a recurrent CAE on ground truth segments:
 
     # Buckeye
-    ./train_cae.py --cae_n_epochs 30 --train_tag gt  # h
+    ./train_cae.py --cae_n_epochs 30 --train_tag gt
 
 Evaluate the model:
 
+    # Validation
     ./apply_model.py \
-        models/buckeye.mfcc.gt/train_cae/605ad20105/cae.best_val.ckpt val
+        models/buckeye.mfcc.gt/train_cae/60a4a9619e/cae.best_val.ckpt val
     ./eval_samediff.py --mvn \
-        models/buckeye.mfcc.gt/train_cae/605ad20105/cae.best_val.val.npz
+        models/buckeye.mfcc.gt/train_cae/60a4a9619e/cae.best_val.val.npz
+
+    # Test
+    ./apply_model.py \
+        models/buckeye.mfcc.gt/train_cae/60a4a9619e/cae.best_val.ckpt test
+    ./eval_samediff.py --mvn \
+        models/buckeye.mfcc.gt/train_cae/60a4a9619e/cae.best_val.test.npz
+
+All the models trained below (including autoencoder and VAE models) can be
+evaluated using these scripts.
 
 Analyse embeddings:
 
@@ -32,24 +42,20 @@ Analyse embeddings:
         --word_type \
         because,yknow,people,something,anything,education,situation \
         models/buckeye.mfcc.utd/train_cae/e6f4584e05/cae.best_val.test.npz
-        # absolutely,doctor,doctors,particular,particularly,quality,recycling \
 
     ./analyse_embeds.py --normalise --word_type \
         because,basically,exactly,probably,yknow,school,sometimes,something,education,situation \
         models/buckeye.mfcc.utd/train_cae/e6f4584e05/cae.best_val.test.npz
-        # models/buckeye.mfcc.utd/train_cae/d4550ec9fa/ae.best_val.test.npz
-        # models/buckeye.mfcc.utd/train_vae/76970b419e/vae.best_val.test.npz (sigma_sq=0.00001)
-        # models/buckeye.mfcc.utd/train_vae/035823b429/vae.best_val.test.npz (sigma_sq=0.0001)
 
 Train a recurrent CAE on UTD segments:
 
     # Buckeye
-    ./train_cae.py --train_tag utd  # h
+    ./train_cae.py --train_tag utd
 
     # Xitsonga
     ./train_cae.py --data_dir data/xitsonga.mfcc --train_tag utd \
         --pretrain_usefinal --extrinsic_usefinal --use_test_for_val
-        --cae_n_epochs 3  # h
+        --cae_n_epochs 3
 
 Apply a Buckeye CAE on Xitsonga:
 
@@ -66,15 +72,15 @@ only with the AE pre-training step.
 
 Train a recurrent AE on ground truth segments:
 
-    ./train_cae.py --ae_batch_size 300 --train_tag gt2 --cae_n_epochs 0  # h
+    ./train_cae.py --ae_batch_size 300 --train_tag gt2 --cae_n_epochs 0
 
 Train a recurrent AE on random segments:
 
-    ./train_cae.py --train_tag rnd --ae_batch_size 300 --cae_n_epochs 0  # h
+    ./train_cae.py --train_tag rnd --ae_batch_size 300 --cae_n_epochs 0
 
 Train a recurrent AE on UTD segments:
 
-    ./train_cae.py --train_tag utd --cae_n_epochs 0  # h
+    ./train_cae.py --train_tag utd --cae_n_epochs 0
 
 
 Variational autoencoder

@@ -142,7 +142,7 @@ Dependencies
 ------------
 Standalone packages:
 
-- [Python](https://www.python.org/)
+- [Python 2.7](https://www.python.org/)
 - [NumPy](http://www.numpy.org/) and [SciPy](http://www.scipy.org/)
 - [HTK](http://htk.eng.cam.ac.uk/): Used for MFCC feature extraction.
 - [TensorFlow](https://www.tensorflow.org/)
@@ -152,3 +152,5 @@ Repositories from GitHub:
 - [speech_dtw](https://github.com/kamperh/speech_dtw/): Used for same-different
   evaluation.  Should be cloned into the directory `../src/speech_dtw/`, as
   done in the Preliminary section above.
+
+All of these dependencies are packaged with the docker image.
