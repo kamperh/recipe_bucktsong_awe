@@ -11,6 +11,7 @@ FROM ufoym/deepo:tensorflow-py27-cpu
 # Standard tools (Python 2.7)
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
+    less \
     python-nose
 
 # Install HTK dependencies
@@ -28,6 +29,8 @@ RUN ./configure --disable-hslab && \
     sed -i 's/\ \ \ \ \ \ \ \ if/\tif/' HLMTools/Makefile && \
     make all && \
     make install
+
+# Install GitHub repositories
 
 # Working directory
 WORKDIR /home

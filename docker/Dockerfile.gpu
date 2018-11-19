@@ -11,6 +11,7 @@ FROM ufoym/deepo:tensorflow-py27
 # Standard tools (Python 2.7)
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
+    less \
     python-nose
 
 # Install HTK dependencies
@@ -28,6 +29,11 @@ RUN ./configure --disable-hslab && \
     sed -i 's/\ \ \ \ \ \ \ \ if/\tif/' HLMTools/Makefile && \
     make all && \
     make install
+
+# Install GitHub repositories
+RUN git clone https://github.com/kamperh/speech_dtw.git /src/speech_dtw/
+WORKDIR /src/speech_dtw
+RUN make
 
 # Working directory
 WORKDIR /home

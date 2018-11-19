@@ -87,9 +87,9 @@ starts an interactive container.
 Preliminaries
 -------------
 If you are not using the docker image, install all the standalone dependencies
-(see Dependencies section below).
+(see Dependencies section below) and then follow the steps here.
 
-Then clone the required GitHub repositories into `../src/` as follows:
+Clone the required GitHub repositories into `../src/` as follows:
 
     mkdir ../src/  # not necessary using docker
     git clone https://github.com/kamperh/speech_dtw.git ../src/speech_dtw/

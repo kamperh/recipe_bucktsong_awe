@@ -215,20 +215,6 @@ Get same-different words for the different subsets:
         xitsonga/xitsonga.samediff.list \
         xitsonga/xitsonga.samediff.fbank.mvn.npz
 
-    # Xitsonga dev
-    mkdir xitsonga_dev
-    ./segments_from_npz.py \
-        ../subsets/xitsonga_dev/xitsonga_dev.mfcc.cmvn_dd.npz \
-        xitsonga/xitsonga.samediff.list \
-        xitsonga_dev/xitsonga_dev.samediff.mfcc.cmvn_dd.npz
-
-    # Xitsonga test
-    mkdir xitsonga_test
-    ./segments_from_npz.py \
-        ../subsets/xitsonga_test/xitsonga_test.mfcc.cmvn_dd.npz \
-        xitsonga/xitsonga.samediff.list \
-        xitsonga_test/xitsonga_test.samediff.mfcc.cmvn_dd.npz
-
     cd ..
 
 
