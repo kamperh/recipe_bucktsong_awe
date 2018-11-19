@@ -78,7 +78,7 @@ mode with the mounted directories, run:
   docker run --runtime=nvidia \
       -v /r2d2/backup/endgame/datasets/buckeye:/data/buckeye \
       -v /r2d2/backup/endgame/datasets/zrsc2015/xitsonga_wavs:/data/xitsonga_wavs \
-      -v "$(pwd)":/home -it tf-htk
+      -v "$(pwd)":/home -it -p 8887:8887 tf-htk
 
 Alternatively, simply run `./docker.sh`, which executes the above command and
 starts an interactive container.
