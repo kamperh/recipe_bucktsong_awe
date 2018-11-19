@@ -42,7 +42,8 @@ details of which speakers are found in which set is also given at the end of
 provided as part of the Zero Speech Challenge 2015 (this is already a subset of
 the NCHLT data).
 
-Download all these datasets beforehand. The can be stored apart from the code.
+Download all these datasets beforehand. These can be stored apart from the
+code.
 
 
 Clone the repository
@@ -82,10 +83,10 @@ All the rest of the steps can be run in a container in interactive mode. You
 will need to mount the dataset directories. To run the container in interactive
 mode with the mounted directories, run:
 
-  docker run --runtime=nvidia \
-      -v /r2d2/backup/endgame/datasets/buckeye:/data/buckeye \
-      -v /r2d2/backup/endgame/datasets/zrsc2015/xitsonga_wavs:/data/xitsonga_wavs \
-      -v "$(pwd)":/home -it -p 8887:8887 tf-htk
+    docker run --runtime=nvidia \
+        -v /r2d2/backup/endgame/datasets/buckeye:/data/buckeye \
+        -v /r2d2/backup/endgame/datasets/zrsc2015/xitsonga_wavs:/data/xitsonga_wavs \
+        -v "$(pwd)":/home -it -p 8887:8887 tf-htk
 
 Alternatively, simply run `./docker.sh`, which executes the above command and
 starts an interactive container.
@@ -104,10 +105,10 @@ Clone the required GitHub repositories into `../src/` as follows:
 
 Build the `speech_dtw` tools by running:
 
-  cd ../src/speech_dtw
-  make
-  make test
-  cd -
+    cd ../src/speech_dtw
+    make
+    make test
+    cd -
 
 For `speech_dtw` you need to run `make` to build. Unit tests can be performed
 by running `make test`. See the readmes for more details.
@@ -149,7 +150,7 @@ Notebooks
 ---------
 Some example notebooks are given in the `notebooks/` directory. These were also
 used during development, so they are not completely refined. A docker container
-can be used to launch a notebook session by running `docker_notebook.sh` and
+can be used to launch a notebook session by running `./docker_notebook.sh` and
 then opening http://localhost:8889/.
 
 
@@ -168,4 +169,4 @@ Repositories from GitHub:
   evaluation.  Should be cloned into the directory `../src/speech_dtw/`, as
   done in the Preliminary section above.
 
-All of these dependencies are packaged with the docker image.
+All of these dependencies are packaged in the docker images.
