@@ -11,9 +11,17 @@ FROM ufoym/deepo:tensorflow-py27-cpu
 # Standard tools (Python 2.7)
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    less \
-    nano \
-    python-nose
+        less \
+        nano \
+        && \
+    python -m pip --no-cache-dir install --upgrade \
+        setuptools \
+        pip \
+        && \
+    python -m pip --no-cache-dir install --upgrade \
+        ipython \
+        nose \
+        jupyter
 
 # Install HTK dependencies
 RUN apt-get update && \
