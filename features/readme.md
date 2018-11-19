@@ -94,18 +94,6 @@ Create Xitsonga subsets:
     ln -s ../../mfcc/xitsonga/numpy/xitsonga.mfcc.cmvn_dd.npz xitsonga/
     ln -s ../../fbank/xitsonga/numpy/xitsonga.fbank.mvn.npz xitsonga/
 
-    # Xitsonga dev
-    mkdir xitsonga_dev
-    ./get_subset_npz.py ../mfcc/xitsonga/numpy/xitsonga.mfcc.cmvn_dd.npz \
-        ../../data/xitsonga_dev_speakers.list \
-        xitsonga_dev/xitsonga_dev.mfcc.cmvn_dd.npz
-
-    # Xitsonga test
-    mkdir xitsonga_test
-    ./get_subset_npz.py ../mfcc/xitsonga/numpy/xitsonga.mfcc.cmvn_dd.npz \
-        ../../data/xitsonga_test_speakers.list \
-        xitsonga_test/xitsonga_test.mfcc.cmvn_dd.npz
-
 Analyse speaker lists:
 
     ./analyse_buckeye_speaker_list.py ../../data/devpart1_speakers.list
