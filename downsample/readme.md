@@ -8,7 +8,6 @@ MFCCs are downsampled to obtain acoustic word embeddings. These are evaluated
 using same-different evaluation.
 
 
-
 Downsampling
 ------------
 Perform downsampling on MFCCs without deltas:
@@ -38,8 +37,6 @@ Perform downsampling on MFCCs without deltas:
         ${n_samples}
 
 
-
-
 Evaluation
 ----------
 Evaluate and analyse downsampled MFCCs without deltas:
@@ -67,7 +64,6 @@ Evaluate and analyse downsampled MFCCs without deltas:
     ./analyse_embeds.py --normalize --word_type \
         kombisa,swilaveko,kahle,swinene,xiyimo,fanele,naswona,xikombelo \
         exp/xitsonga/samediff.mfcc.cmvn_dd.downsample_${n_samples}.npz
-
 
 
 Results

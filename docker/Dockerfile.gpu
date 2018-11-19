@@ -12,6 +12,7 @@ FROM ufoym/deepo:tensorflow-py27
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     less \
+    nano \
     python-nose
 
 # Install HTK dependencies

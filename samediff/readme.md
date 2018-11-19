@@ -8,7 +8,6 @@ Performs same-different evaluation on frame-level features using dynamic time
 warping (DTW) alignment.
 
 
-
 Evaluation
 ----------
 This needs to be run on a multi-core machine. Change the `n_cpus` variable in
@@ -47,7 +46,6 @@ Evaluate filterbanks:
         ../features/wordpairs/xitsonga/xitsonga.samediff.fbank.mvn.npz
     ./run_samediff.sh  \
         ../features/wordpairs/xitsonga/xitsonga.samediff.fbank.mvn.npz
-
 
 
 Results

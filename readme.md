@@ -87,7 +87,8 @@ starts an interactive container.
 Preliminaries
 -------------
 If you are not using the docker image, install all the standalone dependencies
-(see Dependencies section below) and then follow the steps here.
+(see Dependencies section below). Then follow the steps here. The docker image
+includes all these dependencies and GitHub repositories.
 
 Clone the required GitHub repositories into `../src/` as follows:
 
@@ -118,12 +119,10 @@ moving to the directory (`cd features`) and then running the steps in
 [features/readme.md](features/readme.md).
 
 
-
 Frame-level same-different evaluation
 -------------------------------------
 To perform frame-level same-different evaluation based on dynamic time warping
 (DTW), follow the steps in [samediff/readme.md](samediff/readme.md).
-
 
 
 Downsampled acoustic word embeddings
@@ -132,10 +131,15 @@ Extract and evaluate downsampled acoustic word embeddings by running the steps
 in [downsample/readme.md](downsample/readme.md).
 
 
+Neural acoustic word embeddings
+-------------------------------
+Train and evaluate encoder-decoder recurrent neural network acoustic word
+embedding methods by running the steps in
+[embeddings/readme.md](embeddings/readme.md).
+
 
 Dependencies
 ------------
-
 Standalone packages:
 
 - [Python](https://www.python.org/)
