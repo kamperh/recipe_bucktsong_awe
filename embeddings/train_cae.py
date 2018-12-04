@@ -351,7 +351,8 @@ def get_pair_list(labels):
     match_list = []
     for n in range(N - 1):
         cur_label = labels[n]
-        for cur_match_i in n + 1 + np.where(np.asarray(labels[n + 1:]) == cur_label)[0]:
+        for cur_match_i in (n + 1 + np.where(np.asarray(labels[n + 1:]) ==
+                cur_label)[0]):
             match_list.append((n, cur_match_i))
             match_list.append((cur_match_i, n))
     return match_list
