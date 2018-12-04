@@ -120,7 +120,8 @@ class PairedBucketIterator(object):
         self.shuffle_every_epoch = shuffle_every_epoch
         self.n_input = self.x_list[0].shape[-1]
         self.x_lengths = np.array([i.shape[0] for i in x_list])
-        self.n_batches = int(len(self.x_lengths)/batch_size)
+        # self.n_batches = int(len(self.x_lengths)/batch_size)
+        self.n_batches = int(len(self.pair_list)/self.batch_size)
         self.pair_list = pair_list
         
         # Set up bucketing
@@ -128,7 +129,8 @@ class PairedBucketIterator(object):
         sorted_indices = np.argsort(
             [max(len(x_list[i]), len(x_list[j])) for i, j in pair_list]
             )
-        bucket_size = int(len(self.x_lengths)/self.n_buckets)
+        # bucket_size = int(len(self.x_lengths)/self.n_buckets)
+        bucket_size = int(len(self.pair_list)/self.n_buckets)
         self.buckets = []
         for i_bucket in xrange(n_buckets):
             self.buckets.append(
