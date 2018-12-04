@@ -164,7 +164,7 @@ def train_cae(options_dict):
     data_io.trunc_and_limit_dim(val_x, val_lengths, d_frame, max_length)
 
     # Get pairs
-    pair_list = get_pair_list(train_labels)
+    pair_list = batching.get_pair_list(train_labels)
 
 
     # DEFINE MODEL
@@ -344,19 +344,6 @@ def train_cae(options_dict):
 #-----------------------------------------------------------------------------#
 #                              UTILITY FUNCTIONS                              #
 #-----------------------------------------------------------------------------#
-
-def get_pair_list(labels):
-    """Return a list of tuples giving indices of matching types."""
-    N = len(labels)
-    match_list = []
-    for n in range(N - 1):
-        cur_label = labels[n]
-        for cur_match_i in (n + 1 + np.where(np.asarray(labels[n + 1:]) ==
-                cur_label)[0]):
-            match_list.append((n, cur_match_i))
-            match_list.append((cur_match_i, n))
-    return match_list
-
 
 def check_argv():
     """Check the command line arguments."""
