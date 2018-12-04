@@ -47,7 +47,7 @@ default_options_dict = {
         "learning_rate": 0.001,
         "rnn_keep_prob": 1.0,
         "ff_keep_prob": 1.0,
-        "n_epochs": 1,
+        "n_epochs": 10,
         "batch_size": 300,
         "n_buckets": 3,
         "extrinsic_usefinal": False,        # if True, during final extrinsic
