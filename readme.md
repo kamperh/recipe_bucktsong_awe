@@ -148,10 +148,10 @@ embedding methods by running the steps in
 
 Notebooks
 ---------
-Some example notebooks are given in the `notebooks/` directory. These were also
-used during development, so they are not completely refined. A docker container
-can be used to launch a notebook session by running `./docker_notebook.sh` and
-then opening http://localhost:8889/.
+Some example notebooks are given in the `notebooks/` directory. Not that these
+were used mainly during development, so they are not completely refined. A
+docker container can be used to launch a notebook session by running
+`./docker_notebook.sh` and then opening http://localhost:8889/.
 
 
 Dependencies

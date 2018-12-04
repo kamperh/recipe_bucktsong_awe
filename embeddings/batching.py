@@ -15,6 +15,10 @@ sys.path.append(path.join("..", "src"))
 from tflego import NP_DTYPE, TF_DTYPE, NP_ITYPE, TF_ITYPE
 
 
+#-----------------------------------------------------------------------------#
+#                          BATCHING ITERATOR CLASSES                          #
+#-----------------------------------------------------------------------------#
+
 class SimpleIterator(object):
     """Iterator without bucketing."""
     
@@ -251,3 +255,89 @@ class RandomSegmentsIterator(object):
                     )
             else:
                 yield (batch_x_padded, batch_x_lengths)
+
+
+class LabelledBucketIterator(object):
+    """Iterator with labels and bucketing."""
+    
+    def __init__(self, x_list, y, batch_size, n_buckets,
+            shuffle_every_epoch=False):
+        self.x_list = x_list
+        self.y = y
+        self.batch_size = int(np.floor(batch_size*0.5))  # batching is done
+                                                         # over pairs, but
+                                                         # target batch size
+                                                         # given over items
+                                                         # within pairs
+        self.shuffle_every_epoch = shuffle_every_epoch
+        self.n_input = self.x_list[0].shape[-1]
+        self.x_lengths = np.array([i.shape[0] for i in x_list])
+        self.pair_list = get_pair_list(y, both_directions=False)
+        self.n_batches = int(len(self.pair_list)/self.batch_size)
+        
+        # Set up bucketing
+        self.n_buckets = n_buckets
+        sorted_indices = np.argsort(
+            [max(len(x_list[i]), len(x_list[j])) for i, j in self.pair_list]
+            )
+        bucket_size = int(len(self.pair_list)/self.n_buckets)
+        self.buckets = []
+        for i_bucket in xrange(self.n_buckets):
+            self.buckets.append(
+                sorted_indices[i_bucket*bucket_size:(i_bucket + 1)*bucket_size]
+                )
+        self.shuffle()
+
+    def shuffle(self):
+        for i_bucket in xrange(self.n_buckets):
+            np.random.shuffle(self.buckets[i_bucket])
+        self.indices = np.concatenate(self.buckets)
+    
+    def __iter__(self):
+
+        if self.shuffle_every_epoch:
+            self.shuffle()
+        
+        for i_batch in xrange(self.n_batches):
+            
+            batch_pair_list = [
+                self.pair_list[i] for i in self.indices[
+                i_batch*self.batch_size:(i_batch + 1)*self.batch_size]
+                ]
+
+            batch_indices = list(
+                set([i for i, j in batch_pair_list] + [j for i, j in
+                batch_pair_list])
+                )
+            
+            batch_x_lengths = self.x_lengths[batch_indices]
+            batch_y = self.y[batch_indices]
+            
+            # Pad to maximum length in batch
+            batch_x_padded = np.zeros(
+                (len(batch_indices), np.max(batch_x_lengths), self.n_input),
+                 dtype=NP_DTYPE
+                )
+            for i, length in enumerate(batch_x_lengths):
+                seq = self.x_list[batch_indices[i]]
+                batch_x_padded[i, :length, :] = seq
+
+            yield (batch_x_padded, batch_x_lengths, batch_y)
+
+
+#-----------------------------------------------------------------------------#
+#                              UTILITY FUNCTIONS                              #
+#-----------------------------------------------------------------------------#
+
+def get_pair_list(labels, both_directions=True):
+    """Return a list of tuples giving indices of matching types."""
+    N = len(labels)
+    match_list = []
+    for n in range(N - 1):
+        cur_label = labels[n]
+        for cur_match_i in (n + 1 + np.where(np.asarray(labels[n + 1:]) ==
+                cur_label)[0]):
+            match_list.append((n, cur_match_i))
+            if both_directions:
+                match_list.append((cur_match_i, n))
+    return match_list

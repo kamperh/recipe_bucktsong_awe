@@ -34,6 +34,26 @@ def build_linear(x, n_output):
     return tf.matmul(x, W) + b
 
 
+def build_feedforward(x, n_hiddens, keep_prob=1., activation=tf.nn.relu):
+    """
+    Build a feedforward neural network.
+    
+    The final layer is linear.
+    
+    Parameters
+    ----------
+    n_hiddens : list
+        Hidden units in each of the layers.
+    """
+    for i_layer, n_hidden in enumerate(n_hiddens):
+        with tf.variable_scope("ff_layer_{}".format(i_layer)):
+            x = build_linear(x, n_hidden)
+            if i_layer != len(n_hiddens) - 1:
+                x = activation(x)
+            x = tf.nn.dropout(x, keep_prob)
+    return x
+
+
 def build_rnn_cell(n_hidden, rnn_type="lstm", **kwargs):
     """
     The `kwargs` parameters are passed directly to the constructor of the cell
