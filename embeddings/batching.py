@@ -115,12 +115,15 @@ class PairedBucketIterator(object):
     
     def __init__(self, x_list, pair_list, batch_size, n_buckets,
             shuffle_every_epoch=False):
+
+        # Attributes
         self.x_list = x_list
+        self.pair_list = pair_list
         self.batch_size = batch_size
         self.shuffle_every_epoch = shuffle_every_epoch
+
         self.n_input = self.x_list[0].shape[-1]
         self.x_lengths = np.array([i.shape[0] for i in x_list])
-        self.pair_list = pair_list
         # self.n_batches = int(len(self.x_lengths)/batch_size)
         self.n_batches = int(len(self.pair_list)/self.batch_size)
         
