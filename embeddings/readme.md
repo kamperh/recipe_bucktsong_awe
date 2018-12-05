@@ -110,15 +110,14 @@ Evaluate the model:
 
     # Validation
     ./apply_model.py \
-        models/buckeye.mfcc.gt/train_siamese/???/cae.best_val.ckpt val
+        models/buckeye.mfcc.gt/train_siamese/c95c82710c/siamese.best_val.ckpt val
     ./eval_samediff.py --mvn \
-        models/buckeye.mfcc.gt/train_siamese/???/cae.best_val.val.npz
+        models/buckeye.mfcc.gt/train_siamese/c95c82710c/siamese.best_val.val.npz
 
-    # Test
-    ./apply_model.py \
-        models/buckeye.mfcc.gt/train_siamese/???/cae.best_val.ckpt test
-    ./eval_samediff.py --mvn \
-        models/buckeye.mfcc.gt/train_siamese/???/cae.best_val.test.npz
+This gives the results:
+
+    Average precision: 0.5389
+    Precision-recall breakeven: 0.5277
 
 
 Sweeping across models
