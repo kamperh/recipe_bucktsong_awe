@@ -100,6 +100,27 @@ Train a recurrent VAE on UTD segments:
     ./train_vae.py --batch_size 300 --train_tag utd
 
 
+Siamese model
+-------------
+Train a Siamese model on ground segments:
+
+    ./train_siamese.py --n_epochs 50 --train_tag gt
+
+Evaluate the model:
+
+    # Validation
+    ./apply_model.py \
+        models/buckeye.mfcc.gt/train_siamese/???/cae.best_val.ckpt val
+    ./eval_samediff.py --mvn \
+        models/buckeye.mfcc.gt/train_siamese/???/cae.best_val.val.npz
+
+    # Test
+    ./apply_model.py \
+        models/buckeye.mfcc.gt/train_siamese/???/cae.best_val.ckpt test
+    ./eval_samediff.py --mvn \
+        models/buckeye.mfcc.gt/train_siamese/???/cae.best_val.test.npz
+
+
 Sweeping across models
 ----------------------
 Multiple models can be run in series and the evaluated. Here is an example of
