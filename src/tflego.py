@@ -377,6 +377,8 @@ def build_multi_encdec_lazydynamic_latentfunc(x, x_lengths, enc_n_hiddens,
     else:
         x = latent_layer["y"]
     d_latent_layer_output = x.get_shape().as_list()[-1]
+    print(x.shape)
+    print(d_latent_layer_output)
 
     # Decoder
 
@@ -384,6 +386,8 @@ def build_multi_encdec_lazydynamic_latentfunc(x, x_lengths, enc_n_hiddens,
     decoder_input = tf.reshape(
         tf.tile(x, [1, maxlength]), [-1, maxlength, d_latent_layer_output]
         )
+    print(decoder_input.shape)
+    assert False
 
     # Decoding RNN
     if bidirectional:
