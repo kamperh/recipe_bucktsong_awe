@@ -62,6 +62,9 @@ default_options_dict = {
                                             # validation best)
         "use_test_for_val": False,
         "n_val_interval": 1,
+        "d_speaker_embedding": None,        # if None, no speaker information
+                                            # is used, otherwise this is the
+                                            # embedding dimensionality
         "rnd_seed": 1,
     }
 
@@ -141,7 +144,7 @@ def train_cae(options_dict):
     npz_fn = path.join(
         options_dict["data_dir"], "train." + train_tag + ".npz"
         )
-    train_x, train_labels, train_lengths, train_keys = (
+    train_x, train_labels, train_lengths, train_keys, train_speakers = (
         data_io.load_data_from_npz(npz_fn, min_length)
         )
 
@@ -150,8 +153,8 @@ def train_cae(options_dict):
         npz_fn = path.join(options_dict["data_dir"], "test.npz")
     else:
         npz_fn = path.join(options_dict["data_dir"], "val.npz")
-    val_x, val_labels, val_lengths, val_keys = data_io.load_data_from_npz(
-        npz_fn
+    val_x, val_labels, val_lengths, val_keys, val_speakers = (
+        data_io.load_data_from_npz(npz_fn)
         )
 
     # Truncate and limit dimensionality

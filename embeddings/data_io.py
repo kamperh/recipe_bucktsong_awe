@@ -16,6 +16,7 @@ def load_data_from_npz(npz_fn, min_length=None):
     npz = np.load(npz_fn)
     x = []
     labels = []
+    speakers = []
     lengths = []
     keys = []
     n_items = 0
@@ -25,7 +26,11 @@ def load_data_from_npz(npz_fn, min_length=None):
         keys.append(utt_key)
         x.append(npz[utt_key])
         word = "_".join(utt_key.split("_")[:-2])
+        speaker = utt_key.split("_")[1][:3]
         labels.append(word)
+        speakers.append(speaker)
+        print(speaker)
+        assert False
         lengths.append(npz[utt_key].shape[0])
         n_items += 1
     print("No. items:", n_items)
