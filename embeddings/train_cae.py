@@ -189,10 +189,10 @@ def train_cae(options_dict):
         for i, speaker in enumerate(sorted(list(train_speaker_set))):
             speaker_to_id[speaker] = i
             id_to_speaker[i] = speaker
-        train_speaker_id = []
+        train_speaker_ids = []
         for speaker in train_speakers:
-            train_speaker_id.append(speaker_to_id[speaker])
-        train_speaker_id = np.array(train_speaker_id, dtype=NP_ITYPE)
+            train_speaker_ids.append(speaker_to_id[speaker])
+        train_speaker_ids = np.array(train_speaker_ids, dtype=NP_ITYPE)
         options_dict["n_speakers"] = max(speaker_to_id.values()) + 1
 
     # Truncate and limit dimensionality
@@ -304,7 +304,8 @@ def train_cae(options_dict):
         train_batch_iterator = batching.PairedBucketIterator(
             train_x, [(i, i) for i in xrange(len(train_x))],
             options_dict["ae_batch_size"], options_dict["ae_n_buckets"],
-            shuffle_every_epoch=True
+            shuffle_every_epoch=True, speaker_ids=None if
+            options_dict["d_speaker_embedding"] is None else train_speaker_ids
             )
     ae_record_dict = training.train_fixed_epochs_external_val(
         options_dict["ae_n_epochs"], optimizer, loss, train_batch_iterator,
@@ -330,7 +331,9 @@ def train_cae(options_dict):
         val_model_fn = intermediate_model_fn
         train_batch_iterator = batching.PairedBucketIterator(
             train_x, pair_list, batch_size=options_dict["cae_batch_size"],
-            n_buckets=options_dict["cae_n_buckets"], shuffle_every_epoch=True
+            n_buckets=options_dict["cae_n_buckets"], shuffle_every_epoch=True,
+            speaker_ids=None if options_dict["d_speaker_embedding"] is None
+            else train_speaker_ids
             )
         cae_record_dict = training.train_fixed_epochs_external_val(
             options_dict["cae_n_epochs"], optimizer, loss, train_batch_iterator,
