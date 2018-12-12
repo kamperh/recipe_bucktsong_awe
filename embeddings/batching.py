@@ -114,13 +114,14 @@ class PairedBucketIterator(object):
     """Iterator over bucketed pairs of sequences."""
     
     def __init__(self, x_list, pair_list, batch_size, n_buckets,
-            shuffle_every_epoch=False):
+            shuffle_every_epoch=False, speaker_ids=None):
 
         # Attributes
         self.x_list = x_list
         self.pair_list = pair_list
         self.batch_size = batch_size
         self.shuffle_every_epoch = shuffle_every_epoch
+        self.speaker_ids = speaker_ids
 
         self.n_input = self.x_list[0].shape[-1]
         self.x_lengths = np.array([i.shape[0] for i in x_list])
@@ -163,6 +164,10 @@ class PairedBucketIterator(object):
             
             batch_lengths_a = self.x_lengths[batch_indices_a]
             batch_lengths_b = self.x_lengths[batch_indices_b]
+
+            if self.speaker_ids is not None:
+                batch_speaker_a = self.speaker_ids[batch_indices_a]
+                batch_speaker_b = self.speaker_ids[batch_indices_b]
             
             n_pad = max(np.max(batch_lengths_a), np.max(batch_lengths_b))
             
@@ -180,10 +185,16 @@ class PairedBucketIterator(object):
                 seq = self.x_list[batch_indices_b[i]]
                 batch_padded_b[i, :length, :] = seq
             
-            yield (
-                batch_padded_a, batch_lengths_a, batch_padded_b,
-                batch_lengths_b
-                )
+            if self.speaker_ids is None:
+                yield (
+                    batch_padded_a, batch_lengths_a, batch_padded_b,
+                    batch_lengths_b
+                    )
+            else:
+                yield (
+                    batch_padded_a, batch_lengths_a, batch_padded_b,
+                    batch_lengths_b, batch_speaker_b
+                    )
 
 
 class RandomSegmentsIterator(object):
