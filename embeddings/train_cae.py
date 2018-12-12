@@ -62,7 +62,7 @@ default_options_dict = {
                                             # validation best)
         "use_test_for_val": False,
         "n_val_interval": 1,
-        "d_speaker_embedding": None,           # if None, no speaker information
+        "d_speaker_embedding": 1,           # if None, no speaker information
                                             # is used, otherwise this is the
                                             # embedding dimensionality
         "rnd_seed": 1,
