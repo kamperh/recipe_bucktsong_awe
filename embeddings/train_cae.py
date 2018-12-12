@@ -307,13 +307,22 @@ def train_cae(options_dict):
             shuffle_every_epoch=True, speaker_ids=None if
             options_dict["d_speaker_embedding"] is None else train_speaker_ids
             )
-    ae_record_dict = training.train_fixed_epochs_external_val(
-        options_dict["ae_n_epochs"], optimizer, loss, train_batch_iterator,
-        [a, a_lengths, b, b_lengths], samediff_val,
-        save_model_fn=pretrain_intermediate_model_fn,
-        save_best_val_model_fn=pretrain_model_fn,
-        n_val_interval=options_dict["n_val_interval"]
-        )
+    if options_dict["d_speaker_embedding"] is None:
+        ae_record_dict = training.train_fixed_epochs_external_val(
+            options_dict["ae_n_epochs"], optimizer, loss, train_batch_iterator,
+            [a, a_lengths, b, b_lengths], samediff_val,
+            save_model_fn=pretrain_intermediate_model_fn,
+            save_best_val_model_fn=pretrain_model_fn,
+            n_val_interval=options_dict["n_val_interval"]
+            )
+    else:
+        ae_record_dict = training.train_fixed_epochs_external_val(
+            options_dict["ae_n_epochs"], optimizer, loss, train_batch_iterator,
+            [a, a_lengths, b, b_lengths, speaker_id], samediff_val,
+            save_model_fn=pretrain_intermediate_model_fn,
+            save_best_val_model_fn=pretrain_model_fn,
+            n_val_interval=options_dict["n_val_interval"]
+            )
 
 
     # CORRESPONDENCE TRAINING: TRAIN AND VALIDATE
@@ -335,13 +344,24 @@ def train_cae(options_dict):
             speaker_ids=None if options_dict["d_speaker_embedding"] is None
             else train_speaker_ids
             )
-        cae_record_dict = training.train_fixed_epochs_external_val(
-            options_dict["cae_n_epochs"], optimizer, loss, train_batch_iterator,
-            [a, a_lengths, b, b_lengths], samediff_val,
-            save_model_fn=intermediate_model_fn, save_best_val_model_fn=model_fn,
-            n_val_interval=options_dict["n_val_interval"],
-            load_model_fn=cae_pretrain_model_fn
-            )
+        if options_dict["d_speaker_embedding"] is None:
+            cae_record_dict = training.train_fixed_epochs_external_val(
+                options_dict["cae_n_epochs"], optimizer, loss,
+                train_batch_iterator, [a, a_lengths, b, b_lengths],
+                samediff_val, save_model_fn=intermediate_model_fn,
+                save_best_val_model_fn=model_fn,
+                n_val_interval=options_dict["n_val_interval"],
+                load_model_fn=cae_pretrain_model_fn
+                )
+        else:
+            cae_record_dict = training.train_fixed_epochs_external_val(
+                options_dict["cae_n_epochs"], optimizer, loss,
+                train_batch_iterator, [a, a_lengths, b, b_lengths, speaker_id],
+                samediff_val, save_model_fn=intermediate_model_fn,
+                save_best_val_model_fn=model_fn,
+                n_val_interval=options_dict["n_val_interval"],
+                load_model_fn=cae_pretrain_model_fn
+                )
 
     # Save record
     record_dict_fn = path.join(model_dir, "record_dict.pkl")
