@@ -62,7 +62,7 @@ default_options_dict = {
                                             # validation best)
         "use_test_for_val": False,
         "n_val_interval": 1,
-        "d_speaker_embedding": 1,           # if None, no speaker information
+        "d_speaker_embedding": None,           # if None, no speaker information
                                             # is used, otherwise this is the
                                             # embedding dimensionality
         "rnd_seed": 1,
@@ -75,6 +75,7 @@ default_options_dict = {
 
 def build_cae_from_options_dict(a, a_lengths, b_lengths, options_dict):
 
+    # Latent layer
     build_latent_func = tflego.build_autoencoder
     latent_func_kwargs = {
         "enc_n_hiddens": [],
@@ -82,22 +83,45 @@ def build_cae_from_options_dict(a, a_lengths, b_lengths, options_dict):
         "dec_n_hiddens": [options_dict["dec_n_hiddens"][0]],
         "activation": tf.nn.relu
         }
+
+    # Speaker embedding
+    if options_dict["d_speaker_embedding"] is not None:
+        speaker_id = tf.placeholder(TF_ITYPE, [None])
+        with tf.variable_scope("speaker_embedding"):
+            speaker_embedding = tf.get_variable(
+                    "E", [options_dict["n_speakers"],
+                    options_dict["d_speaker_embedding"]], dtype=TF_DTYPE,
+                    initializer=tf.contrib.layers.xavier_initializer()
+                    )
+            embedding_lookup = tf.nn.embedding_lookup(
+                speaker_embedding, speaker_id
+                )
+
+    # Network
     network_dict = tflego.build_multi_encdec_lazydynamic_latentfunc(
         a, a_lengths, options_dict["enc_n_hiddens"],
         options_dict["dec_n_hiddens"], build_latent_func, latent_func_kwargs,
         y_lengths=b_lengths, rnn_type=options_dict["rnn_type"],
         bidirectional=options_dict["bidirectional"],
-        keep_prob=options_dict["keep_prob"]
+        keep_prob=options_dict["keep_prob"],
+        add_conditioning_tensor=None if options_dict["d_speaker_embedding"] is
+        None else embedding_lookup
         )
+
     encoder_states = network_dict["encoder_states"]
     ae = network_dict["latent_layer"]
     z = ae["z"]
     y = network_dict["decoder_output"]
     mask = network_dict["mask"]
-
     y *= tf.expand_dims(mask, -1)  # safety
 
-    return {"z": z, "y": y, "mask": mask}
+    if options_dict["d_speaker_embedding"] is not None:
+        return {
+            "z": z, "y": y, "mask": mask, "speaker_id": speaker_id,
+            "speaker_embedding": speaker_embedding
+            }
+    else:
+        return {"z": z, "y": y, "mask": mask}
 
 
 def train_cae(options_dict):
@@ -169,6 +193,7 @@ def train_cae(options_dict):
         for speaker in train_speakers:
             train_speaker_id.append(speaker_to_id[speaker])
         train_speaker_id = np.array(train_speaker_id, dtype=NP_ITYPE)
+        options_dict["n_speakers"] = max(speaker_to_id.values()) + 1
 
     # Truncate and limit dimensionality
     max_length = options_dict["max_length"]
@@ -205,6 +230,8 @@ def train_cae(options_dict):
     mask = network_dict["mask"]
     z = network_dict["z"]
     y = network_dict["y"]
+    if options_dict["d_speaker_embedding"] is not None:
+        speaker_id = network_dict["speaker_id"]
 
     # Reconstruction loss
     loss = tf.reduce_mean(
