@@ -320,7 +320,8 @@ def build_encdec_lazydynamic_latentfunc(x, x_lengths, n_hidden,
 
 def build_multi_encdec_lazydynamic_latentfunc(x, x_lengths, enc_n_hiddens,
         dec_n_hiddens, build_latent_func, latent_func_kwargs, rnn_type="lstm",
-        keep_prob=1., y_lengths=None, bidirectional=False, **kwargs):
+        keep_prob=1., y_lengths=None, bidirectional=False,
+        add_conditioning_tensor=None, **kwargs):
     """
     Multi-layer encoder-decoder with conditioning and a generic latent layer.
 
@@ -370,11 +371,18 @@ def build_multi_encdec_lazydynamic_latentfunc(x, x_lengths, enc_n_hiddens,
     latent_layer = build_latent_func(c, **latent_func_kwargs)
     x = latent_layer["y"]
 
+    # Add additional conditioning if provided
+    if add_conditioning_tensor is not None:
+        x = tf.concat([latent_layer["y"], add_conditioning_tensor], axis=1)
+    else:
+        x = latent_layer["y"]
+    d_latent_layer_output = x.get_shape().as_list()[-1]
+
     # Decoder
 
     # Repeat encoder states
     decoder_input = tf.reshape(
-        tf.tile(x, [1, maxlength]), [-1, maxlength, dec_n_hiddens[0]]
+        tf.tile(x, [1, maxlength]), [-1, maxlength, d_latent_layer_output]
         )
 
     # Decoding RNN
