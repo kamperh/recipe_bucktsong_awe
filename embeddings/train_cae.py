@@ -47,7 +47,7 @@ default_options_dict = {
         "n_z": 130,                         # latent dimensionality
         "learning_rate": 0.001,
         "keep_prob": 1.0,
-        "ae_n_epochs": 10, #100,                 # AE pretraining options
+        "ae_n_epochs": 100,                 # AE pretraining options
         "ae_batch_size": 300,
         "ae_n_buckets": 3,
         "pretrain_usefinal": False,         # if True, do not use best

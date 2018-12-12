@@ -72,7 +72,9 @@ def apply_model(model_fn, subset, language):
             npz_fn = npz_fn.replace("buckeye", language)
         elif "xitsonga" in npz_fn:
             npz_fn = npz_fn.replace("xitsonga", language)
-    x_data, labels, lengths, keys = data_io.load_data_from_npz(npz_fn)
+    x_data, labels, lengths, keys, speakers = data_io.load_data_from_npz(
+        npz_fn
+        )
 
     # Truncate and limit dimensionality
     data_io.trunc_and_limit_dim(
