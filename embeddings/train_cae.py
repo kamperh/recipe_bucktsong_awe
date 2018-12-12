@@ -47,7 +47,7 @@ default_options_dict = {
         "n_z": 130,                         # latent dimensionality
         "learning_rate": 0.001,
         "keep_prob": 1.0,
-        "ae_n_epochs": 10,                 # AE pretraining options
+        "ae_n_epochs": 100,                 # AE pretraining options
         "ae_batch_size": 300,
         "ae_n_buckets": 3,
         "pretrain_usefinal": False,         # if True, do not use best
@@ -62,7 +62,7 @@ default_options_dict = {
                                             # validation best)
         "use_test_for_val": False,
         "n_val_interval": 1,
-        "d_speaker_embedding": None,           # if None, no speaker information
+        "d_speaker_embedding": None,        # if None, no speaker information
                                             # is used, otherwise this is the
                                             # embedding dimensionality
         "rnd_seed": 1,
