@@ -62,7 +62,7 @@ default_options_dict = {
                                             # validation best)
         "use_test_for_val": False,
         "n_val_interval": 1,
-        "d_speaker_embedding": None,        # if None, no speaker information
+        "d_speaker_embedding": 1,           # if None, no speaker information
                                             # is used, otherwise this is the
                                             # embedding dimensionality
         "rnd_seed": 1,
@@ -156,6 +156,19 @@ def train_cae(options_dict):
     val_x, val_labels, val_lengths, val_keys, val_speakers = (
         data_io.load_data_from_npz(npz_fn)
         )
+
+    # Convert training speakers, if speaker embeddings
+    if options_dict["d_speaker_embedding"] is not None:
+        train_speaker_set = set(train_speakers)
+        speaker_to_id = {}
+        id_to_speaker = {}
+        for i, speaker in enumerate(sorted(list(train_speaker_set))):
+            speaker_to_id[speaker] = i
+            id_to_speaker[i] = speaker
+        train_speaker_id = []
+        for speaker in train_speakers:
+            train_speaker_id.append(speaker_to_id[speaker])
+        train_speaker_id = np.array(train_speaker_id, dtype=NP_ITYPE)
 
     # Truncate and limit dimensionality
     max_length = options_dict["max_length"]

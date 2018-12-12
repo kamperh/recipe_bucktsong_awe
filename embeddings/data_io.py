@@ -29,13 +29,11 @@ def load_data_from_npz(npz_fn, min_length=None):
         speaker = utt_key.split("_")[1][:3]
         labels.append(word)
         speakers.append(speaker)
-        print(speaker)
-        assert False
         lengths.append(npz[utt_key].shape[0])
         n_items += 1
     print("No. items:", n_items)
     print("E.g. item shape:", x[0].shape)
-    return (x, labels, lengths, keys)
+    return (x, labels, lengths, keys, speakers)
 
 
 def trunc_and_limit_dim(x, lengths, d_frame, max_length):
