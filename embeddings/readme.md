@@ -147,12 +147,12 @@ Sweep:
 
     ./sweep.py --static_args \
         "--cae_n_epochs 30 --train_tag gt --pretrain_usefinal" \
-        --rnd_seed 1,2,3,4,5 train_cae &> models/train_cae.paper.sweep12
+        --rnd_seed 1,2,3,4,5 train_cae &> models/train_cae.paper.sweep15
 
 Validation results:
 
-    Validation AP mean: 0.3783 (+- 0.0143)
-    Validation AP with normalisation mean: 0.3806 (+- 0.0137)
+    Validation AP mean: 0.5021 (+- 0.0147)
+    Validation AP with normalisation mean: 0.5112 (+- 0.0138)
 
 Test results (needs to be performed manually on each model and saved in
 `test_ap.txt` in the model directory):
@@ -166,14 +166,14 @@ Sweep:
 
     ./sweep.py --static_args \
         "--cae_n_epochs 10 --train_tag utd --pretrain_usefinal" \
-        --rnd_seed 1,2,3,4,5 train_cae &> models/train_cae.paper.sweep11
+        --rnd_seed 1,2,3,4,5 train_cae &> models/train_cae.paper.sweep16
 
 Results:
 
-    Validation AP mean: 0.2930 (+- 0.0122)
-    Validation AP with normalisation mean: 0.3184 (+- 0.0085)
-    Test AP mean: 0.2732 (+- 0.0107)
-    Test AP with normalisation mean: 0.3093 (+- 0.0101)
+    Validation AP mean: 0.2858 (+- 0.0128)
+    Validation AP with normalisation mean: 0.3167 (+- 0.0055)
+    Test AP mean: 0.2868 (+- 0.0071)
+    Test AP with normalisation mean: 0.3215 (+- 0.0058)
 
 ### EncDec-CAE trained without initialising from EncDec-AE:
 
@@ -181,20 +181,20 @@ Sweep:
 
     ./sweep.py --static_args \
         "--cae_n_epochs 150 --train_tag gt --ae_n_epochs 0" \
-        --rnd_seed 1,2,3,4,5 train_cae &> models/train_cae.paper.sweep13
+        --rnd_seed 1,2,3,4,5 train_cae &> models/train_cae.paper.sweep17
     ./sweep.py --static_args \
         "--cae_n_epochs 150 --train_tag utd --ae_n_epochs 0" \
-        --rnd_seed 1,2,3,4,5 train_cae &> models/train_cae.paper.sweep14
+        --rnd_seed 1,2,3,4,5 train_cae &> models/train_cae.paper.sweep18
 
 Results (ground truth):
 
-    Validation AP mean: 0.2078 (+- 0.0068)
-    Validation AP with normalisation mean: 0.2059 (+- 0.0063)
+    Validation AP mean: 0.4648 (+- 0.0120)
+    Validation AP with normalisation mean: 0.4688 (+- 0.0089)
 
 Results (UTD):
 
-    Validation AP mean: 0.0952 (+- 0.0075)
-    Validation AP with normalisation mean: 0.1205 (+- 0.0054)
+    Validation AP mean: 0.1574 (+- 0.0088)
+    Validation AP with normalisation mean: 0.1901 (+- 0.0029)
 
 ### EncDec-AE trained on ground truth segments:
 
@@ -290,8 +290,8 @@ Sweep:
 
 Test results:
 
-    Test AP mean: 0.2913 (+- 0.0094)
-    Test AP with normalisation mean: 0.3098 (+- 0.0079)
+    Test AP mean: 0.3052 (+- 0.0193)
+    Test AP with normalisation mean: 0.3204 (+- 0.0152)
 
 Although it says "validation" in the output, remember that we used the test
 data as validation data during training without cheating, i.e. we always used
