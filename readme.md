@@ -8,8 +8,8 @@ evaluated on the Buckeye English and NCHLT Xitsonga speech datasets. The
 experiments are described in:
 
 - H. Kamper, "Truly unsupervised acoustic word embeddings using weak top-down
-  constraints in encoder-decoder models," *arXiv preprint arXiv:1811.00403*,
-  2018. [[arXiv](https://arxiv.org/abs/1811.00403)]
+  constraints in encoder-decoder models," in *Proc. ICASSP*, 2019.
+  [[arXiv](https://arxiv.org/abs/1811.00403)]
 
 Please cite this paper if you use the code.
 
