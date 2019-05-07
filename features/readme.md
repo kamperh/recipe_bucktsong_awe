@@ -230,3 +230,28 @@ Buckeye is divided into a number of sets based on the speakers:
 - testpart2: s07, s14, s09, s21, s36, s35, s15, s28
 - dev: devpart1 + devpart2
 - test: ZS + testpart2 
+
+
+Archive key format
+------------------
+For the unsegmented feature NumPy archives (e.g. `buckeye.mfcc.cmvn_dd.npz`),
+dictionary keys look as follows:
+
+    s0101a_003222-003255
+
+For speaker `s01`, this is utterance `01a` from frames `3222` to `3255`.
+
+For the archives containing isolated words (e.g.
+`devpart1.samediff.mfcc.cmvn_dd.npz`), the keys look as follows:
+
+    abandoned_s0602a_044207-044257
+
+This indicates that the segment contains features for the word `abandoned`
+spoken by speaker `s06` in utterance `02a`, with the word occurring from frame
+`44207` to `44257`. For archives with discovered words (e.g.
+`buckeye_utd_terms.mfcc.cmvn_dd.npz`), the keys might look like:
+
+    PT10000_s2102b_027358-027413
+
+where `PT10000` refers to the the cluster (or pseudo term) to which this
+segment is assigned.
