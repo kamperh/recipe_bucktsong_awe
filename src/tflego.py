@@ -510,7 +510,7 @@ def vae_loss_gaussian(x, y, sigma_sq, z_mean, z_log_sigma_sq,
     """
     
     # Gaussian reconstruction loss
-    if reconstruction_loss is not None:
+    if reconstruction_loss is None:
         reconstruction_loss = 1./(2*sigma_sq)*(
             tf.losses.mean_squared_error(x, y)
             )
@@ -531,7 +531,7 @@ def vae_loss_bernoulli(x, y, z_mean, z_log_sigma_sq, reconstruction_loss=None):
     """
     
     # Bernoulli reconstruction loss
-    if reconstruction_loss is not None:
+    if reconstruction_loss is None:
         reconstruction_loss = -tf.reduce_sum(
             x*tf.log(1e-10 + y) + (1 - x)*tf.log(1e-10 + 1 - y), 1
             )
