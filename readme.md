@@ -3,6 +3,11 @@ Unsupervised Acoustic Word Embeddings on Buckeye English and NCHLT Xitsonga
 
 Overview
 --------
+**Note:** An updated version of this recipe is available at
+https://github.com/kamperh/recipe_bucktsong_awe_py3. This updated recipe is
+implemented in Python 3 (instead of Python 2.7) and uses LibROSA for feature
+extraction (instead of HTK).
+
 Unsupervised acoustic word embedding (AWE) approaches are implemented and
 evaluated on the Buckeye English and NCHLT Xitsonga speech datasets. The
 experiments are described in:
