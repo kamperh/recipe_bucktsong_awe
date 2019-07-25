@@ -170,3 +170,9 @@ Repositories from GitHub:
   done in the Preliminary section above.
 
 All of these dependencies are packaged in the docker images.
+
+
+License
+-------
+The code is distributed under the Creative Commons Attribution-ShareAlike
+license ([CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)).
